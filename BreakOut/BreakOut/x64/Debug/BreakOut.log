@@ -1,0 +1,10 @@
+﻿  BreakOut.cpp
+E:\BreakOut\BreakOut\BreakOut\BreakOut.cpp(71,24): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+  Game.cpp
+  ResourceManager.cpp
+  Shader.cpp
+  Texture2D.cpp
+  正在生成代码...
+  BreakOut.vcxproj -> E:\BreakOut\BreakOut\x64\Debug\BreakOut.exe
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。
