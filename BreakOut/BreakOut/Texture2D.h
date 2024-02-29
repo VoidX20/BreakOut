@@ -21,7 +21,7 @@ public:
 	Texture2D();
 	//从解析的图片数据创建贴图
 	void Generate(unsigned int width, unsigned int height, unsigned char* data);
-	//将当前贴图对象绑定为GL_TEXTURE_2D格式
+	//绑定当前贴图对象
 	void Bind() const;
 };
 

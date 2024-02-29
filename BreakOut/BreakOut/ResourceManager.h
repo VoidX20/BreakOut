@@ -22,13 +22,13 @@ public:
 	/// <param name="gShaderFile">几何着色器文件路径（可选）</param>
 	/// <param name="name">着色器名称</param>
 	/// <returns>着色器对象</returns>
-	static Shader    LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name);
+	static Shader&    LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name);
 	/// <summary>
 	/// 按名称获取着色器对象
 	/// </summary>
 	/// <param name="name">着色器名称</param>
 	/// <returns>着色器对象</returns>
-	static Shader    GetShader(std::string name);
+	static Shader&    GetShader(std::string name);
 	/// <summary>
 	/// 从文件载入贴图
 	/// </summary>
@@ -36,13 +36,13 @@ public:
 	/// <param name="alpha">是否有alpha通道</param>
 	/// <param name="name">贴图名称</param>
 	/// <returns>贴图对象</returns>
-	static Texture2D LoadTexture(const char* file, bool alpha, std::string name);
+	static Texture2D& LoadTexture(const char* file, bool alpha, std::string name);
 	/// <summary>
 	/// 按名称获取贴图对象
 	/// </summary>
 	/// <param name="name">贴图名称</param>
 	/// <returns>贴图对象</returns>
-	static Texture2D GetTexture(std::string name);
+	static Texture2D& GetTexture(std::string name);
 	/// <summary>
 	/// 清理所有已加载的资源
 	/// </summary>
@@ -59,12 +59,12 @@ private:
 	/// <param name="fShaderFile">片段着色器文件路径</param>
 	/// <param name="gShaderFile">几何着色器文件路径（可选）</param>
 	/// <returns>着色器对象</returns>
-	static Shader    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile = nullptr);
+	static Shader&    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile = nullptr);
 	/// <summary>
 	/// 从文件载入贴图
 	/// </summary>
 	/// <param name="file">贴图文件路径</param>
 	/// <param name="alpha">是否有alpha通道</param>
 	/// <returns>贴图对象</returns>
-	static Texture2D loadTextureFromFile(const char* file, bool alpha);
+	static Texture2D& loadTextureFromFile(const char* file, bool alpha);
 };
