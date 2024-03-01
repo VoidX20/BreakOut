@@ -42,6 +42,9 @@
     <ClCompile Include="GameLevel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BallObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -71,10 +74,17 @@
     <ClInclude Include="GameLevel.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="BallObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\sprite.frag" />
     <None Include="shaders\sprite.vert" />
+    <None Include="levels\four.lvl" />
+    <None Include="levels\one.lvl" />
+    <None Include="levels\three.lvl" />
+    <None Include="levels\two.lvl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png">
