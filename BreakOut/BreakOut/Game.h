@@ -2,7 +2,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <tuple>
 #include "GameLevel.h"
+
 
 
 // 游戏状态
@@ -11,6 +13,19 @@ enum GameState {
 	GAME_MENU,
 	GAME_WIN
 };
+
+//方向
+enum Direction {
+	UP,
+	RIGHT,
+	DOWN,
+	LEFT
+};
+
+/// <summary>
+/// 用于碰撞检测，三个参数分别是：是否碰撞，方向和差矢量
+/// </summary>
+typedef std::tuple<GLboolean, Direction, glm::vec2> Collision;
 
 //玩家挡板大小
 const glm::vec2 PLAYER_SIZE(100, 20);
@@ -29,8 +44,8 @@ public:
 	GameState              State;				//游戏状态
 	GLboolean              Keys[1024];			//存储键盘输入
 	GLuint                 Width, Height;		//屏幕宽高
-	std::vector<GameLevel> Levels;				//关卡砖块数据
-	GLuint                 Level;
+	std::vector<GameLevel> Levels;				//所有关卡对象的集合
+	GLuint                 Level;				//当前关卡序号
 
 	//局部静态变量实现的实例化函数，需要C++11以上
 	static Game& instantce(GLuint Width, GLuint Height) {
@@ -45,5 +60,10 @@ public:
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
 	void Render();
+	//碰撞处理
+	void DoCollisions();
+	//重置
+	void ResetLevel();
+	void ResetPlayer();
 };
 
