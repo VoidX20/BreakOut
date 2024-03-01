@@ -1,4 +1,8 @@
 ﻿  Game.cpp
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(50,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(51,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(52,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(53,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
   BreakOut.vcxproj -> E:\BreakOut\BreakOut\x64\Debug\BreakOut.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。

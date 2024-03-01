@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BreakOut.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
@@ -34,6 +34,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevel.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,6 +65,12 @@
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\sprite.frag" />
@@ -66,6 +78,15 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\block.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\block_solid.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\paddle.png">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

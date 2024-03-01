@@ -1,5 +1,7 @@
-E:\BreakOut\BreakOut\BreakOut\BreakOut.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\BreakOut.obj
+E:\BreakOut\BreakOut\BreakOut\GameLevel.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\GameLevel.obj
+E:\BreakOut\BreakOut\BreakOut\main.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\main.obj
 E:\BreakOut\BreakOut\BreakOut\Game.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\Game.obj
+E:\BreakOut\BreakOut\BreakOut\GameObject.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\GameObject.obj
 E:\BreakOut\BreakOut\BreakOut\ResourceManager.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\ResourceManager.obj
 E:\BreakOut\BreakOut\BreakOut\Shader.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\Shader.obj
 E:\BreakOut\BreakOut\BreakOut\SpriteRenderer.cpp;E:\BreakOut\BreakOut\BreakOut\x64\Debug\SpriteRenderer.obj
