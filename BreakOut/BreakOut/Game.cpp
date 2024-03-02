@@ -5,12 +5,14 @@
 #include "BallObject.h"
 #include <iostream>
 #include <algorithm>
+#include "ParticleGenerator.h"
 
 typedef std::tuple<GLboolean, Direction, glm::vec2> Collision;
 
 SpriteRenderer* Renderer;
 GameObject* Player;
 BallObject* Ball;
+ParticleGenerator* Particles;
 
 // 初始化球的速度
 const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
@@ -42,7 +44,7 @@ void Game::Init()
 {
 	// 加载着色器
 	ResourceManager::LoadShader("shaders/sprite.vert", "shaders/sprite.frag", nullptr, "sprite");
-
+	ResourceManager::LoadShader("shaders/particle.vert", "shaders/particle.frag", nullptr, "particle");
 
 	// 配置着色器的投影矩阵，采用正射投影，参数分别为左、右、下、上边界，以及标准化设备坐标的区域
 	// 分别为(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f)
@@ -65,9 +67,11 @@ void Game::Init()
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width),
 		static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
 
-
-	ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
+	//配置着色器
+	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);			//告诉OpenGL，sprite这个采样器在0号纹理单元
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+	ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
 
 	// 加载纹理
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
@@ -75,6 +79,7 @@ void Game::Init()
 	ResourceManager::LoadTexture("textures/block_solid.png", GL_FALSE, "block_solid");
 	ResourceManager::LoadTexture("textures/paddle.png", true, "paddle");
 	ResourceManager::LoadTexture("textures/awesomeface.png", GL_TRUE, "face");
+	ResourceManager::LoadTexture("textures/particle.png", GL_TRUE, "particle");
 
 	// 设置渲染器对象
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
@@ -98,12 +103,20 @@ void Game::Init()
 	glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
 	Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
 		ResourceManager::GetTexture("face"));
+
+	//配置粒子系统
+	Particles = new ParticleGenerator(
+		ResourceManager::GetShader("particle"),
+		ResourceManager::GetTexture("particle"),
+		500
+	);
 }
 
 void Game::Update(GLfloat dt)
 {
 	// 更新对象
 	Ball->Move(dt, this->Width);
+	Particles->Update(dt, *Ball, 2, glm::vec2(Ball->Radius / 2));
 	// 检测碰撞
 	this->DoCollisions();
 	if (Ball->Position.y >= this->Height) // 球是否接触底部边界？
@@ -153,6 +166,8 @@ void Game::Render()
 		this->Levels[this->Level].Draw(*Renderer);
 		//绘制玩家
 		Player->Draw(*Renderer);
+		//绘制粒子，应当在其他物体之后，球之前，这样粒子就会在其他物体的前面
+		Particles->Draw();
 		//绘制球
 		Ball->Draw(*Renderer);
 	}

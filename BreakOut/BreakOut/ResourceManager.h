@@ -59,12 +59,12 @@ private:
 	/// <param name="fShaderFile">片段着色器文件路径</param>
 	/// <param name="gShaderFile">几何着色器文件路径（可选）</param>
 	/// <returns>着色器对象</returns>
-	static Shader&    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile = nullptr);
+	static Shader    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile = nullptr);
 	/// <summary>
 	/// 从文件载入贴图
 	/// </summary>
 	/// <param name="file">贴图文件路径</param>
 	/// <param name="alpha">是否有alpha通道</param>
 	/// <returns>贴图对象</returns>
-	static Texture2D& loadTextureFromFile(const char* file, bool alpha);
+	static Texture2D loadTextureFromFile(const char* file, bool alpha);
 };

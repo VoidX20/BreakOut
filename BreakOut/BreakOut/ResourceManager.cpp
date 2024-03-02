@@ -41,7 +41,7 @@ void ResourceManager::Clear()
 		glDeleteTextures(1, &iter.second.ID);
 }
 
-Shader& ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile)
+Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile)
 {
 	//从文件读取文件数据
 	std::string vertexCode;
@@ -85,7 +85,7 @@ Shader& ResourceManager::loadShaderFromFile(const char* vShaderFile, const char*
 	return shader;
 }
 
-Texture2D& ResourceManager::loadTextureFromFile(const char* file, bool alpha)
+Texture2D ResourceManager::loadTextureFromFile(const char* file, bool alpha)
 {
 	//创建贴图对象
 	Texture2D texture;
