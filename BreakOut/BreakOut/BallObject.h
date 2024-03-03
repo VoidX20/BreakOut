@@ -12,6 +12,7 @@ public:
 	//球的状态	
 	GLfloat   Radius;	//半径
 	GLboolean Stuck;	//是否黏着在挡板上
+	GLboolean Sticky, PassThrough;	//道具特效，参见PowerUp.h
 	//构造函数
 	BallObject();
 	BallObject(glm::vec2 pos, GLfloat radius, glm::vec2 velocity, Texture2D sprite);

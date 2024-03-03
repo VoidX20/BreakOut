@@ -11,8 +11,9 @@ void Texture2D::Generate(unsigned int width, unsigned int height, unsigned char*
 {
 	this->Width = width;
 	this->Height = height;
-	//创建贴图
+	//将贴图绑定到指定句柄
 	glBindTexture(GL_TEXTURE_2D, this->ID);
+	//将数据上传到GPU
 	glTexImage2D(GL_TEXTURE_2D, 0, this->Internal_Format, width, height, 0, this->Image_Format, GL_UNSIGNED_BYTE, data);
 	//设置环绕和过滤方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->Wrap_S);
