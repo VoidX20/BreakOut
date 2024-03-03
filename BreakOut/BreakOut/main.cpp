@@ -27,9 +27,9 @@ int main(int argc, char* argv[])
 	//glfw初始化，用于窗口管理
 	glfwInit();
 	//设置目标OpenGL版本330 core
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);					//设置OpenGL大版本号
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);					//设置OpenGL小版本号
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);	//使用核心模式
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	//创建窗口

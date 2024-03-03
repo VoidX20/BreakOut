@@ -48,6 +48,9 @@
     <ClCompile Include="ParticleGenerator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="PostProcessor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -83,6 +86,9 @@
     <ClInclude Include="ParticleGenerator.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PostProcessor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\sprite.frag" />
@@ -93,6 +99,8 @@
     <None Include="levels\two.lvl" />
     <None Include="shaders\particle.frag" />
     <None Include="shaders\particle.vert" />
+    <None Include="shaders\post_processing.frag" />
+    <None Include="shaders\post_processing.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png">
