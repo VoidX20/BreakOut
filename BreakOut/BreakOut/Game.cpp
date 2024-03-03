@@ -68,9 +68,9 @@ void Game::Init()
 		static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
 
 	//配置着色器
-	ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);			//告诉OpenGL，sprite这个采样器在0号纹理单元
+	ResourceManager::GetShader("sprite").Use();
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-	ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
+	ResourceManager::GetShader("particle").Use();
 	ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
 
 	// 加载纹理
@@ -166,7 +166,7 @@ void Game::Render()
 		this->Levels[this->Level].Draw(*Renderer);
 		//绘制玩家
 		Player->Draw(*Renderer);
-		//绘制粒子，应当在其他物体之后，球之前，这样粒子就会在其他物体的前面
+		//绘制粒子
 		Particles->Draw();
 		//绘制球
 		Ball->Draw(*Renderer);

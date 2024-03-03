@@ -32,13 +32,17 @@ void ParticleGenerator::Draw()
 {
 	//用于制造发光效果
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-	this->shader.Use();
+	//glUseProgram，同时告诉OpenGL，sprite这个采样器的数据在0号纹理单元
+	//必须要对每个采样器都指定纹理单元，不要忘记在设置uniform变量之前激活着色器程序！
+	this->shader.Use().SetInteger("sprite", 0);
 	for (Particle &particle : this->particles)
 	{
 		if (particle.Life > 0.0f)
 		{
 			this->shader.SetVector2f("offset", particle.Position);
 			this->shader.SetVector4f("color", particle.Color);
+			//激活0号纹理单元（默认）
+			glActiveTexture(GL_TEXTURE0);
 			this->texture.Bind();
 			glBindVertexArray(this->VAO);
 			glDrawArrays(GL_TRIANGLES, 0, 6);

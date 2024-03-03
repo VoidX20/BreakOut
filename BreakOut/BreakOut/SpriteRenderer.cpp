@@ -12,8 +12,11 @@ SpriteRenderer::~SpriteRenderer()
 
 void SpriteRenderer::DrawSprite(const Texture2D& texture, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color)
 {
+	//glUseProgram，同时告诉OpenGL，sprite这个采样器的数据在0号纹理单元
+	//必须要对每个采样器都指定纹理单元，不要忘记在设置uniform变量之前激活着色器程序！
+	this->shader.Use().SetInteger("sprite", 0);
+
 	//构造变换矩阵
-	this->shader.Use();
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(position, 0.0f));  //3.平移到指定位置
 
