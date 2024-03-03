@@ -1,17 +1,13 @@
 ﻿  Game.cpp
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(95,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(96,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(97,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(98,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(195,30): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(201,88): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(203,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(205,70): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(207,69): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-  PostProcessor.cpp
-  main.cpp
-E:\BreakOut\BreakOut\BreakOut\main.cpp(71,24): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
-  正在生成代码...
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(101,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(102,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(103,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(104,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(209,30): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(215,88): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(217,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(219,70): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(221,69): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
   BreakOut.vcxproj -> E:\BreakOut\BreakOut\x64\Debug\BreakOut.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。

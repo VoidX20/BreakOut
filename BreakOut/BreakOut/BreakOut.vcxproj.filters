@@ -51,6 +51,9 @@
     <ClCompile Include="PostProcessor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="PowerUp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -89,6 +92,9 @@
     <ClInclude Include="PostProcessor.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="PowerUp.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\sprite.frag" />
@@ -116,6 +122,27 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="textures\background.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\particle.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\powerup_chaos.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\powerup_confuse.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\powerup_increase.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\powerup_passthrough.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\powerup_speed.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="textures\powerup_sticky.png">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

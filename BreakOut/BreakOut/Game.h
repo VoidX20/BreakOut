@@ -4,7 +4,7 @@
 #include <vector>
 #include <tuple>
 #include "GameLevel.h"
-
+#include "PowerUp.h"
 
 
 // 游戏状态
@@ -46,6 +46,7 @@ public:
 	GLuint                 Width, Height;		//屏幕宽高
 	std::vector<GameLevel> Levels;				//所有关卡对象的集合
 	GLuint                 Level;				//当前关卡序号
+	std::vector<PowerUp>  PowerUps;				//游戏中的道具
 
 	//局部静态变量实现的实例化函数，需要C++11以上
 	static Game& instantce(GLuint Width, GLuint Height) {
@@ -60,10 +61,13 @@ public:
 	void ProcessInput(GLfloat dt);
 	void Update(GLfloat dt);
 	void Render();
-	//碰撞处理
+	//碰撞处理相关
 	void DoCollisions();
-	//重置
-	void ResetLevel();
-	void ResetPlayer();
+	//重置相关
+	void ResetLevel();	//重置当前关卡
+	void ResetPlayer();	//重置玩家和球
+	//道具相关
+	void SpawnPowerUps(GameObject& block);	//在指定位置生成一个道具块
+	void UpdatePowerUps(GLfloat dt);		//更新所有当前被激活的道具
 };
 
