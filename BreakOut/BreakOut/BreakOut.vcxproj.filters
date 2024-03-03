@@ -107,6 +107,8 @@
     <None Include="shaders\particle.vert" />
     <None Include="shaders\post_processing.frag" />
     <None Include="shaders\post_processing.vert" />
+    <None Include="ikpMP3.dll" />
+    <None Include="irrKlang.dll" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png">

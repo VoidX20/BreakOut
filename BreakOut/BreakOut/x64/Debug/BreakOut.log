@@ -1,13 +1,13 @@
 ﻿  Game.cpp
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(101,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(102,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(103,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(104,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(209,30): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(215,88): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(217,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(219,70): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(221,69): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(107,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(108,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(109,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(110,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(218,30): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(224,88): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(226,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(228,70): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(230,69): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
   BreakOut.vcxproj -> E:\BreakOut\BreakOut\x64\Debug\BreakOut.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。

@@ -8,9 +8,15 @@
 #include "ParticleGenerator.h"
 #include "PostProcessor.h"
 #include "PowerUp.h"
+#include "audio/irrKlang/include/irrKlang.h"
+using namespace irrklang;
 
 typedef std::tuple<GLboolean, Direction, glm::vec2> Collision;
 
+//初始化音频引擎
+ISoundEngine* SoundEngine = createIrrKlangDevice();
+
+//一些全局变量
 SpriteRenderer* Renderer;
 GameObject* Player;
 BallObject* Ball;
@@ -123,6 +129,9 @@ void Game::Init()
 		ResourceManager::GetTexture("particle"),
 		500
 	);
+
+	//播放背景音乐
+	SoundEngine->play2D("audio/breakout.mp3", GL_TRUE);
 }
 
 void Game::Update(GLfloat dt)
@@ -301,15 +310,15 @@ Collision CheckCollision(BallObject& one, GameObject& two) // AABB - Circle coll
 	}
 }
 
-GLboolean CheckCollision(GameObject& one, GameObject& two) // AABB - AABB collision
+GLboolean CheckCollision(GameObject& one, GameObject& two) // 方形AABB - AABB碰撞
 {
-	// Collision x-axis?
+	// X轴碰撞
 	GLboolean collisionX = one.Position.x + one.Size.x >= two.Position.x &&
 		two.Position.x + two.Size.x >= one.Position.x;
-	// Collision y-axis?
+	// Y轴碰撞
 	GLboolean collisionY = one.Position.y + one.Size.y >= two.Position.y &&
 		two.Position.y + two.Size.y >= one.Position.y;
-	// Collision only if on both axes
+	// 两个轴都碰撞时才是真碰撞
 	return collisionX && collisionY;
 }
 
@@ -330,11 +339,13 @@ void Game::DoCollisions()
 				if (!box.IsSolid) {
 					box.Destroyed = GL_TRUE;
 					this->SpawnPowerUps(box);
+					SoundEngine->play2D("audio/bleep.mp3", GL_FALSE);
 				}
 				else {
 					// 如果是实心的砖块则激活shake特效
 					ShakeTime = 0.05f;
 					Effects->Shake = GL_TRUE;
+					SoundEngine->play2D("audio/solid.wav", GL_FALSE);
 				}
 				// 碰撞处理
 				Direction dir = std::get<1>(collision);
@@ -386,6 +397,8 @@ void Game::DoCollisions()
 			Ball->Velocity.y = -1.0f * abs(Ball->Velocity.y);
 			//道具效果，检测粘附
 			Ball->Stuck = Ball->Sticky;
+
+			SoundEngine->play2D("audio/bleep.wav", GL_FALSE);
 		}
 	}
 	//道具更新部分
@@ -400,6 +413,7 @@ void Game::DoCollisions()
 				ActivatePowerUp(powerUp);
 				powerUp.Destroyed = GL_TRUE;
 				powerUp.Activated = GL_TRUE;
+				SoundEngine->play2D("audio/powerup.wav", GL_FALSE);
 			}
 		}
 	}
