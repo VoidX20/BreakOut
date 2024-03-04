@@ -1,13 +1,16 @@
 ﻿  Game.cpp
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(101,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(102,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(103,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(104,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(209,30): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(215,88): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(217,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(219,70): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(221,69): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(125,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(126,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(127,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(128,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(295,30): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(306,59): warning C4244: “参数”: 从“GLuint”转换到“GLfloat”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(314,52): warning C4244: “参数”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(315,73): warning C4244: “参数”: 从“GLuint”转换到“GLfloat”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(324,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(327,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(330,70): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(333,69): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
   BreakOut.vcxproj -> E:\BreakOut\BreakOut\x64\Debug\BreakOut.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。

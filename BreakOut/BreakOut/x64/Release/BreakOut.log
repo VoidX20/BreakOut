@@ -1,24 +1,18 @@
-﻿  Game.cpp
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(87,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(88,70): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(89,76): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(90,73): warning C4244: “参数”: 从“double”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(177,88): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(179,68): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(181,70): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
-E:\BreakOut\BreakOut\BreakOut\Game.cpp(183,69): warning C4244: “参数”: 从“float”转换到“GLuint”，可能丢失数据
+﻿  BallObject.cpp
+  main.cpp
+E:\BreakOut\BreakOut\BreakOut\main.cpp(69,24): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+  Game.cpp
   ParticleGenerator.cpp
+E:\BreakOut\BreakOut\BreakOut\Game.cpp(11,10): error C1083: 无法打开包括文件: “irrKlang.h”: No such file or directory
 E:\BreakOut\BreakOut\BreakOut\ParticleGenerator.cpp(25,20): warning C4244: “-=”: 从“double”转换到“T”，可能丢失数据
 E:\BreakOut\BreakOut\BreakOut\ParticleGenerator.cpp(25,20): warning C4244:         with
 E:\BreakOut\BreakOut\BreakOut\ParticleGenerator.cpp(25,20): warning C4244:         [
 E:\BreakOut\BreakOut\BreakOut\ParticleGenerator.cpp(25,20): warning C4244:             T=float
 E:\BreakOut\BreakOut\BreakOut\ParticleGenerator.cpp(25,20): warning C4244:         ]
-E:\BreakOut\BreakOut\BreakOut\ParticleGenerator.cpp(105,17): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+E:\BreakOut\BreakOut\BreakOut\ParticleGenerator.cpp(109,17): warning C4244: “初始化”: 从“double”转换到“GLfloat”，可能丢失数据
+  PostProcessor.cpp
+  PowerUp.cpp
+  SpriteRenderer.cpp
+  TextRenderer.cpp
+E:\BreakOut\BreakOut\BreakOut\TextRenderer.cpp(4,10): error C1083: 无法打开包括文件: “ft2build.h”: No such file or directory
   Texture2D.cpp
-  正在生成代码
-  Previous IPDB and IOBJ mismatch, fall back to full compilation.
-  All 1005 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  已完成代码的生成
-  BreakOut.vcxproj -> E:\BreakOut\BreakOut\x64\Release\BreakOut.exe
-  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
-  或批处理文件。

@@ -54,6 +54,9 @@
     <ClCompile Include="PowerUp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="TextRenderer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -95,6 +98,9 @@
     <ClInclude Include="PowerUp.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="TextRenderer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\sprite.frag" />
@@ -107,6 +113,12 @@
     <None Include="shaders\particle.vert" />
     <None Include="shaders\post_processing.frag" />
     <None Include="shaders\post_processing.vert" />
+    <None Include="ikpMP3.dll" />
+    <None Include="irrKlang.dll" />
+    <None Include="freetype.dll" />
+    <None Include="ikpFlac.dll" />
+    <None Include="shaders\text_2d.frag" />
+    <None Include="shaders\text_2d.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\awesomeface.png">
@@ -145,5 +157,8 @@
     <Image Include="textures\powerup_sticky.png">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\OCRAEXT.TTF" />
   </ItemGroup>
 </Project>
