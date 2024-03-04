@@ -11,6 +11,7 @@
 #include <irrKlang.h>
 #include "TextRenderer.h"
 #include <sstream>
+#include <string>
 
 using namespace irrklang;
 
@@ -60,12 +61,15 @@ Game::~Game()
 
 void Game::Init()
 {
+	std::cout << "编译着色器...";
 	// 加载着色器
 	ResourceManager::LoadShader("shaders/sprite.vert", "shaders/sprite.frag", nullptr, "sprite");
 	ResourceManager::LoadShader("shaders/particle.vert", "shaders/particle.frag", nullptr, "particle");
 	ResourceManager::LoadShader("shaders/post_processing.vert", "shaders/post_processing.frag", nullptr, "postprocessing");
 	//FIXME:字体的着色器在TextRender.cpp中加载，待优化
+	std::cout << "成功" << std::endl;
 
+	std::cout << "配置着色器...";
 	// 配置着色器的投影矩阵，采用正射投影，参数分别为左、右、下、上边界，以及标准化设备坐标的区域
 	// 分别为(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f)
 	// 也就是把所有在0到800之间的x坐标变换到-1到1之间，并把所有在0到600之间的y坐标变换到-1到1之间
@@ -86,14 +90,15 @@ void Game::Init()
 	*/
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width),
 		static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
-
 	//配置着色器
 	ResourceManager::GetShader("sprite").Use();
 	ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 	ResourceManager::GetShader("particle").Use();
 	ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
+	std::cout << "成功" << std::endl;
 
-	// 加载纹理
+	std::cout << "加载贴图...";
+	// 加载纹理贴图
 	ResourceManager::LoadTexture("textures/background.jpg", GL_FALSE, "background");
 	ResourceManager::LoadTexture("textures/block.png", GL_FALSE, "block");
 	ResourceManager::LoadTexture("textures/block_solid.png", GL_FALSE, "block_solid");
@@ -106,12 +111,16 @@ void Game::Init()
 	ResourceManager::LoadTexture("textures/powerup_confuse.png", GL_TRUE, "powerup_confuse");
 	ResourceManager::LoadTexture("textures/powerup_chaos.png", GL_TRUE, "powerup_chaos");
 	ResourceManager::LoadTexture("textures/powerup_passthrough.png", GL_TRUE, "powerup_passthrough");
+	std::cout << "成功" << std::endl;
 
+	std::cout << "设置渲染器...";
 	// 设置渲染器对象
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 	Effects = new PostProcessor(ResourceManager::GetShader("postprocessing"), this->Width, this->Height);
 	Text = new TextRenderer(this->Width, this->Height);
+	std::cout << "成功" << std::endl;
 
+	std::cout << "加载关卡数据...";
 	//加载关卡
 	GameLevel one; one.Load("levels/one.lvl", this->Width, this->Height * 0.5);
 	GameLevel two; two.Load("levels/two.lvl", this->Width, this->Height * 0.5);
@@ -122,42 +131,41 @@ void Game::Init()
 	this->Levels.push_back(three);
 	this->Levels.push_back(four);
 	this->Level = 0;
+	std::cout << "成功" << std::endl;
 
+	std::cout << "游戏初始化...";
 	//配置玩家参数
 	glm::vec2 playerPos = glm::vec2(this->Width / 2 - PLAYER_SIZE.x / 2, this->Height - PLAYER_SIZE.y);
 	Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
-
 	//配置球的参数
 	glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
 	Ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
 		ResourceManager::GetTexture("face"));
-
 	//配置粒子系统
 	Particles = new ParticleGenerator(
 		ResourceManager::GetShader("particle"),
 		ResourceManager::GetTexture("particle"),
 		500
 	);
-
 	//载入字体
 	Text->Load("fonts/OCRAEXT.TTF", 24);
-
 	//播放背景音乐
 	SoundEngine->play2D("audio/breakout.mp3", GL_TRUE);
-
 	//设置初始状态
 	this->State = GAME_MENU;
+	std::cout << "成功" << std::endl;
 }
 
 void Game::Update(GLfloat dt)
 {
-	//游戏是否获胜？
+	//游戏获胜
 	if (this->State == GAME_ACTIVE && this->Levels[this->Level].IsCompleted())
 	{
 		this->ResetLevel();
 		this->ResetPlayer();
 		Effects->Chaos = GL_TRUE;
 		this->State = GAME_WIN;
+		std::cout << "游戏获胜！" << std::endl;
 	}
 
 	// 更新对象
@@ -178,10 +186,13 @@ void Game::Update(GLfloat dt)
 	// 球是否接触到底部边界?
 	if (Ball->Position.y >= this->Height)
 	{
+		std::cout << "球掉出边界" << std::endl;
+		std::cout << "失去生命值" << std::endl;
 		--this->Lives;
 		// 玩家是否已失去所有生命值?
 		if (this->Lives == 0)
 		{
+			std::cout << "生命值耗尽" << std::endl;
 			this->ResetLevel();
 			this->State = GAME_MENU;
 		}
@@ -226,6 +237,7 @@ void Game::ProcessInput(GLfloat dt)
 		{
 			this->State = GAME_ACTIVE;
 			this->KeysProcessed[GLFW_KEY_ENTER] = GL_TRUE;
+			std::cout << "游戏开始！" << std::endl;
 		}
 		if (this->Keys[GLFW_KEY_W] && !this->KeysProcessed[GLFW_KEY_W])
 		{
@@ -293,6 +305,7 @@ void Game::Render()
 	{
 		Text->RenderText("Press ENTER to start", 250.0f, Height / 2, 1.0f);
 		Text->RenderText("Press W or S to select level", 245.0f, Height / 2 + 20.0f, 0.75f);
+		Text->RenderText("Press ESC to quit game", 250.0f, Height / 2 + 40.0f, 0.75f);
 	}
 
 	//游戏获胜时
@@ -305,14 +318,20 @@ void Game::Render()
 
 void Game::ResetLevel()
 {
+	std::cout << "重置关卡" << std::endl;
 	//根据当前关卡顺序值加载关卡数据
-	if (this->Level == 0)this->Levels[0].Load("levels/one.lvl", this->Width, this->Height * 0.5f);
-	else if (this->Level == 1)
+	if (this->Level == 0){
+		this->Levels[0].Load("levels/one.lvl", this->Width, this->Height * 0.5f);
+	}
+	else if (this->Level == 1){
 		this->Levels[1].Load("levels/two.lvl", this->Width, this->Height * 0.5f);
-	else if (this->Level == 2)
+	}
+	else if (this->Level == 2){
 		this->Levels[2].Load("levels/three.lvl", this->Width, this->Height * 0.5f);
-	else if (this->Level == 3)
+	}
+	else if (this->Level == 3){
 		this->Levels[3].Load("levels/four.lvl", this->Width, this->Height * 0.5f);
+	}
 
 	//重置玩家生命值
 	this->Lives = 3;
@@ -320,6 +339,7 @@ void Game::ResetLevel()
 
 void Game::ResetPlayer()
 {
+	std::cout << "重置玩家" << std::endl;
 	//重置玩家和球的状态
 	Player->Size = PLAYER_SIZE;
 	Player->Position = glm::vec2(this->Width / 2 - PLAYER_SIZE.x / 2, this->Height - PLAYER_SIZE.y);
@@ -354,13 +374,15 @@ void ActivatePowerUp(PowerUp& powerUp)
 	}
 	else if (powerUp.Type == "confuse")
 	{
-		if (!Effects->Chaos)
+		if (!Effects->Chaos) {
 			Effects->Confuse = GL_TRUE; // 只在chaos未激活时生效，chaos同理
+		}
 	}
 	else if (powerUp.Type == "chaos")
 	{
-		if (!Effects->Confuse)
+		if (!Effects->Confuse) {
 			Effects->Chaos = GL_TRUE;
+		}
 	}
 }
 
@@ -425,11 +447,13 @@ void Game::DoCollisions()
 			{
 				// 如果砖块不是实心就销毁砖块
 				if (!box.IsSolid) {
+					std::cout << "碰撞非实心砖" << std::endl;
 					box.Destroyed = GL_TRUE;
 					this->SpawnPowerUps(box);
 					SoundEngine->play2D("audio/bleep.mp3", GL_FALSE);
 				}
 				else {
+					std::cout << "碰撞实心砖"<< std::endl;
 					// 如果是实心的砖块则激活shake特效
 					ShakeTime = 0.05f;
 					Effects->Shake = GL_TRUE;
@@ -494,10 +518,14 @@ void Game::DoCollisions()
 	{
 		if (!powerUp.Destroyed)
 		{
-			if (powerUp.Position.y >= this->Height)
+			if (powerUp.Position.y >= this->Height)		//道具掉出边界
+			{
+				std::cout << "道具掉出边界" << std::endl;
 				powerUp.Destroyed = GL_TRUE;
-			if (CheckCollision(*Player, powerUp))
-			{   // 道具与挡板接触，激活它！
+			}
+			if (CheckCollision(*Player, powerUp))		// 道具与挡板接触，激活它！
+			{
+				std::cout << "激活道具:" + powerUp.Type << std::endl;
 				ActivatePowerUp(powerUp);
 				powerUp.Destroyed = GL_TRUE;
 				powerUp.Activated = GL_TRUE;
@@ -546,29 +574,35 @@ GLboolean ShouldSpawn(GLuint chance)
 void Game::SpawnPowerUps(GameObject& block)
 {
 	if (ShouldSpawn(75)) // 1/75的几率
-		this->PowerUps.push_back(
-			PowerUp("speed", glm::vec3(0.5f, 0.5f, 1.0f), 0.0f, block.Position, ResourceManager::GetTexture("powerup_speed")
-			));
+	{
+		std::cout << "生成道具:speed" << std::endl;
+		this->PowerUps.push_back(PowerUp("speed", glm::vec3(0.5f, 0.5f, 1.0f), 0.0f, block.Position, ResourceManager::GetTexture("powerup_speed")));
+	}
 	if (ShouldSpawn(75))
-		this->PowerUps.push_back(
-			PowerUp("sticky", glm::vec3(1.0f, 0.5f, 1.0f), 20.0f, block.Position, ResourceManager::GetTexture("powerup_sticky")
-			));
+	{
+		std::cout << "生成道具:sticky" << std::endl;
+		this->PowerUps.push_back(PowerUp("sticky", glm::vec3(1.0f, 0.5f, 1.0f), 20.0f, block.Position, ResourceManager::GetTexture("powerup_sticky")));
+	}
 	if (ShouldSpawn(75))
-		this->PowerUps.push_back(
-			PowerUp("pass-through", glm::vec3(0.5f, 1.0f, 0.5f), 10.0f, block.Position, ResourceManager::GetTexture("powerup_passthrough")
-			));
+	{
+		std::cout << "生成道具:pass-through" << std::endl;
+		this->PowerUps.push_back(PowerUp("pass-through", glm::vec3(0.5f, 1.0f, 0.5f), 10.0f, block.Position, ResourceManager::GetTexture("powerup_passthrough")));
+	}
 	if (ShouldSpawn(75))
-		this->PowerUps.push_back(
-			PowerUp("pad-size-increase", glm::vec3(1.0f, 0.6f, 0.4), 0.0f, block.Position, ResourceManager::GetTexture("powerup_increase")
-			));
+	{
+		std::cout << "生成道具:pad-size-increase" << std::endl;
+		this->PowerUps.push_back(PowerUp("pad-size-increase", glm::vec3(1.0f, 0.6f, 0.4), 0.0f, block.Position, ResourceManager::GetTexture("powerup_increase")));
+	}
 	if (ShouldSpawn(15)) // 负面道具被更频繁地生成
-		this->PowerUps.push_back(
-			PowerUp("confuse", glm::vec3(1.0f, 0.3f, 0.3f), 15.0f, block.Position, ResourceManager::GetTexture("powerup_confuse")
-			));
+	{
+		std::cout << "生成道具:confuse" << std::endl;
+		this->PowerUps.push_back(PowerUp("confuse", glm::vec3(1.0f, 0.3f, 0.3f), 15.0f, block.Position, ResourceManager::GetTexture("powerup_confuse")));
+	}
 	if (ShouldSpawn(15))
-		this->PowerUps.push_back(
-			PowerUp("chaos", glm::vec3(0.9f, 0.25f, 0.25f), 15.0f, block.Position, ResourceManager::GetTexture("powerup_chaos")
-			));
+	{
+		std::cout << "生成道具:chaos" << std::endl;
+		this->PowerUps.push_back(PowerUp("chaos", glm::vec3(0.9f, 0.25f, 0.25f), 15.0f, block.Position, ResourceManager::GetTexture("powerup_chaos")));
+	}
 }
 
 //检查是否有同类型的道具仍在激活状态
@@ -596,7 +630,8 @@ void Game::UpdatePowerUps(GLfloat dt)
 
 			if (powerUp.Duration <= 0.0f)
 			{
-				// 之后会将这个道具移除
+				std::cout << "移除道具:" + powerUp.Type << std::endl;
+				// 将这个道具移除
 				powerUp.Activated = GL_FALSE;
 				// 停用效果
 				if (powerUp.Type == "sticky")

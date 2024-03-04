@@ -25,6 +25,11 @@ Game& Breakout = Game::instantce(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 int main(int argc, char* argv[])
 {
+	std::cout << "*******************" << std::endl;
+	std::cout << "*     BREAKOUT    *" << std::endl;
+	std::cout << "*******************" << std::endl;
+
+	std::cout << "初始化GLFW...";
 	//glfw初始化，用于窗口管理
 	glfwInit();
 	//设置目标OpenGL版本330 core
@@ -48,12 +53,16 @@ int main(int argc, char* argv[])
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+	std::cout << "成功" << std::endl;
+
+	std::cout << "配置OpenGL...";
 	//配置OpenGL
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);		//配置viewport大小
 	glEnable(GL_CULL_FACE);								//启用面剔除
 	glEnable(GL_DEPTH);									//启用深度测试
 	glEnable(GL_BLEND);									//启用混合
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	//配置混合模式
+	std::cout << "成功" << std::endl;
 
 	//初始化游戏
 	Breakout.Init();
@@ -96,8 +105,10 @@ int main(int argc, char* argv[])
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	//esc键关闭游戏
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
+		std::cout << "游戏关闭！" << std::endl;
+	}
 	//记录按键状态,bitmap模式
 	if (key >= 0 && key < 1024)
 	{
