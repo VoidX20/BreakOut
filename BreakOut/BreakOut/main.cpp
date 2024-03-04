@@ -14,6 +14,7 @@
 /// <param name="action">动作，按下或弹起</param>
 /// <param name="mode"></param>
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 //窗口宽度
 const GLuint SCREEN_WIDTH = 800;
@@ -36,15 +37,16 @@ int main(int argc, char* argv[])
 	GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 
-	//注册回调函数
-	glfwSetKeyCallback(window, key_callback);
-
-	//初始化GLAD
+	//载入所有的OpenGL函数指针
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
+
+	//注册回调函数
+	glfwSetKeyCallback(window, key_callback);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	//配置OpenGL
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);		//配置viewport大小
@@ -59,10 +61,6 @@ int main(int argc, char* argv[])
 	//用于计算帧时间以控制游戏速度
 	GLfloat deltaTime = 0.0f;
 	GLfloat lastFrame = 0.0f;
-
-	//开始游戏
-	Breakout.State = GAME_ACTIVE;
-
 
 	//游戏循环
 	while (!glfwWindowShouldClose(window))
@@ -104,8 +102,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
-			Breakout.Keys[key] = GL_TRUE;
+			Breakout.Keys[key] = true;
 		else if (action == GLFW_RELEASE)
-			Breakout.Keys[key] = GL_FALSE;
+		{
+			Breakout.Keys[key] = false;
+			Breakout.KeysProcessed[key] = false;
+		}
 	}
+}
+
+//窗口大小发生变动时的回调函数（备用）
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
 }

@@ -41,12 +41,14 @@ private:
 	Game(GLuint width, GLuint height);
 
 public:
-	GameState              State;				//游戏状态
-	GLboolean              Keys[1024];			//存储键盘输入
-	GLuint                 Width, Height;		//屏幕宽高
-	std::vector<GameLevel> Levels;				//所有关卡对象的集合
-	GLuint                 Level;				//当前关卡序号
-	std::vector<PowerUp>  PowerUps;				//游戏中的道具
+	GameState				State;				//游戏状态
+	GLboolean				Keys[1024];			//存储键盘输入
+	GLboolean				KeysProcessed[1024];//存储已处理的键盘输入
+	GLuint					Width, Height;		//屏幕宽高
+	std::vector<GameLevel>	Levels;				//所有关卡对象的集合
+	GLuint					Level;				//当前关卡序号
+	std::vector<PowerUp>	PowerUps;				//游戏中的道具
+	GLuint Lives;								//玩家生命值
 
 	//局部静态变量实现的实例化函数，需要C++11以上
 	static Game& instantce(GLuint Width, GLuint Height) {

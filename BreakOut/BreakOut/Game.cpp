@@ -8,7 +8,10 @@
 #include "ParticleGenerator.h"
 #include "PostProcessor.h"
 #include "PowerUp.h"
-#include "audio/irrKlang/include/irrKlang.h"
+#include <irrKlang.h>
+#include "TextRenderer.h"
+#include <sstream>
+
 using namespace irrklang;
 
 typedef std::tuple<GLboolean, Direction, glm::vec2> Collision;
@@ -23,6 +26,7 @@ BallObject* Ball;
 ParticleGenerator* Particles;
 PostProcessor* Effects;
 GLfloat            ShakeTime = 0.0f;
+TextRenderer* Text;
 
 // 初始化球的速度
 const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
@@ -36,7 +40,7 @@ const GLfloat BALL_RADIUS = 12.5f;
 /// <param name="width">窗口宽度</param>
 /// <param name="height">窗口高度</param>
 Game::Game(GLuint width, GLuint height)
-	: State(GAME_ACTIVE), Keys(), Width(width), Height(height)
+	: State(GAME_MENU), Keys(), Width(width), Height(height), Level(0), Lives(3)
 {
 
 }
@@ -51,6 +55,7 @@ Game::~Game()
 	delete Ball;
 	delete Particles;
 	delete Effects;
+	SoundEngine->drop();
 }
 
 void Game::Init()
@@ -59,6 +64,7 @@ void Game::Init()
 	ResourceManager::LoadShader("shaders/sprite.vert", "shaders/sprite.frag", nullptr, "sprite");
 	ResourceManager::LoadShader("shaders/particle.vert", "shaders/particle.frag", nullptr, "particle");
 	ResourceManager::LoadShader("shaders/post_processing.vert", "shaders/post_processing.frag", nullptr, "postprocessing");
+	//FIXME:字体的着色器在TextRender.cpp中加载，待优化
 
 	// 配置着色器的投影矩阵，采用正射投影，参数分别为左、右、下、上边界，以及标准化设备坐标的区域
 	// 分别为(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f)
@@ -100,9 +106,12 @@ void Game::Init()
 	ResourceManager::LoadTexture("textures/powerup_confuse.png", GL_TRUE, "powerup_confuse");
 	ResourceManager::LoadTexture("textures/powerup_chaos.png", GL_TRUE, "powerup_chaos");
 	ResourceManager::LoadTexture("textures/powerup_passthrough.png", GL_TRUE, "powerup_passthrough");
+
 	// 设置渲染器对象
 	Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 	Effects = new PostProcessor(ResourceManager::GetShader("postprocessing"), this->Width, this->Height);
+	Text = new TextRenderer(this->Width, this->Height);
+
 	//加载关卡
 	GameLevel one; one.Load("levels/one.lvl", this->Width, this->Height * 0.5);
 	GameLevel two; two.Load("levels/two.lvl", this->Width, this->Height * 0.5);
@@ -130,12 +139,27 @@ void Game::Init()
 		500
 	);
 
+	//载入字体
+	Text->Load("fonts/OCRAEXT.TTF", 24);
+
 	//播放背景音乐
 	SoundEngine->play2D("audio/breakout.mp3", GL_TRUE);
+
+	//设置初始状态
+	this->State = GAME_MENU;
 }
 
 void Game::Update(GLfloat dt)
 {
+	//游戏是否获胜？
+	if (this->State == GAME_ACTIVE && this->Levels[this->Level].IsCompleted())
+	{
+		this->ResetLevel();
+		this->ResetPlayer();
+		Effects->Chaos = GL_TRUE;
+		this->State = GAME_WIN;
+	}
+
 	// 更新对象
 	Ball->Move(dt, this->Width);	//更新球
 	Particles->Update(dt, *Ball, 2, glm::vec2(Ball->Radius / 2));	//更新粒子
@@ -151,10 +175,16 @@ void Game::Update(GLfloat dt)
 			Effects->Shake = GL_FALSE;
 	}
 
-	// 球是否接触底部边界？
-	if (Ball->Position.y >= this->Height) 
+	// 球是否接触到底部边界?
+	if (Ball->Position.y >= this->Height)
 	{
-		this->ResetLevel();
+		--this->Lives;
+		// 玩家是否已失去所有生命值?
+		if (this->Lives == 0)
+		{
+			this->ResetLevel();
+			this->State = GAME_MENU;
+		}
 		this->ResetPlayer();
 	}
 }
@@ -162,6 +192,7 @@ void Game::Update(GLfloat dt)
 
 void Game::ProcessInput(GLfloat dt)
 {
+	//正在游戏状态时
 	if (this->State == GAME_ACTIVE)
 	{
 		GLfloat velocity = PLAYER_VELOCITY * dt;
@@ -187,11 +218,45 @@ void Game::ProcessInput(GLfloat dt)
 		if (this->Keys[GLFW_KEY_SPACE])
 			Ball->Stuck = GL_FALSE;
 	}
+
+	//在游戏菜单时
+	if (this->State == GAME_MENU)
+	{
+		if (this->Keys[GLFW_KEY_ENTER] && !this->KeysProcessed[GLFW_KEY_ENTER])		//直至松开时才处理，防止一直滚动
+		{
+			this->State = GAME_ACTIVE;
+			this->KeysProcessed[GLFW_KEY_ENTER] = GL_TRUE;
+		}
+		if (this->Keys[GLFW_KEY_W] && !this->KeysProcessed[GLFW_KEY_W])
+		{
+			this->Level = (this->Level + 1) % 4;
+			this->KeysProcessed[GLFW_KEY_W] = GL_TRUE;
+		}
+		if (this->Keys[GLFW_KEY_S] && !this->KeysProcessed[GLFW_KEY_S])
+		{
+			if (this->Level > 0)
+				--this->Level;
+			else
+				this->Level = 3;
+			this->KeysProcessed[GLFW_KEY_S] = GL_TRUE;
+		}
+	}
+
+	//游戏获胜时
+	if (this->State == GAME_WIN)
+	{
+		if (this->Keys[GLFW_KEY_ENTER])
+		{
+			this->KeysProcessed[GLFW_KEY_ENTER] = GL_TRUE;
+			Effects->Chaos = GL_FALSE;
+			this->State = GAME_MENU;
+		}
+	}
 }
 
 void Game::Render()
 {
-	if (this->State == GAME_ACTIVE)
+	if (this->State == GAME_ACTIVE || this->State == GAME_MENU || this->State == GAME_WIN)
 	{
 		//开始离屏渲染
 		Effects->BeginRender();
@@ -216,11 +281,31 @@ void Game::Render()
 		Effects->EndRender();
 		//将后处理结果渲染到屏幕上
 		Effects->Render(glfwGetTime());
+
+		//渲染文字（不包含在后处理中）
+		std::stringstream ss;
+		ss << this->Lives;
+		Text->RenderText("Lives:" + ss.str(), 5.0f, 5.0f, 1.0f);
+	}
+
+	//处于游戏菜单时
+	if (this->State == GAME_MENU)
+	{
+		Text->RenderText("Press ENTER to start", 250.0f, Height / 2, 1.0f);
+		Text->RenderText("Press W or S to select level", 245.0f, Height / 2 + 20.0f, 0.75f);
+	}
+
+	//游戏获胜时
+	if (this->State == GAME_WIN)
+	{
+		Text->RenderText("You WON!!!", 320.0, Height / 2 - 20.0, 1.0, glm::vec3(0.0, 1.0, 0.0));
+		Text->RenderText("Press ENTER to retry or ESC to quit", 130.0, Height / 2, 1.0, glm::vec3(1.0, 1.0, 0.0));
 	}
 }
 
 void Game::ResetLevel()
 {
+	//根据当前关卡顺序值加载关卡数据
 	if (this->Level == 0)this->Levels[0].Load("levels/one.lvl", this->Width, this->Height * 0.5f);
 	else if (this->Level == 1)
 		this->Levels[1].Load("levels/two.lvl", this->Width, this->Height * 0.5f);
@@ -228,6 +313,9 @@ void Game::ResetLevel()
 		this->Levels[2].Load("levels/three.lvl", this->Width, this->Height * 0.5f);
 	else if (this->Level == 3)
 		this->Levels[3].Load("levels/four.lvl", this->Width, this->Height * 0.5f);
+
+	//重置玩家生命值
+	this->Lives = 3;
 }
 
 void Game::ResetPlayer()
@@ -302,7 +390,7 @@ Collision CheckCollision(BallObject& one, GameObject& two) // AABB - Circle coll
 	glm::vec2 closest = aabb_center + clamped;
 	// 获得圆心center和最近点closest的矢量并判断是否 length <= radius
 	difference = closest - center;
-	if (glm::length(difference) <= one.Radius){
+	if (glm::length(difference) <= one.Radius) {
 		return std::make_tuple(GL_TRUE, VectorDirection(difference), difference);
 	}
 	else {
@@ -391,7 +479,7 @@ void Game::DoCollisions()
 			Ball->Velocity.x = INITIAL_BALL_VELOCITY.x * percentage * strength;
 			//新的速度矢量会正交化然后乘以旧速度矢量的长度，这样一来，球的力量和速度将总是一致的，无论它撞击到挡板的哪个地方。
 			//如果只是反转y速度那么不同的碰撞位置会产生不同的碰撞速度，例如正中心和45度的夹角不同，导致矢量长度发生变化
-			Ball->Velocity = glm::normalize(Ball->Velocity) * glm::length(oldVelocity);		
+			Ball->Velocity = glm::normalize(Ball->Velocity) * glm::length(oldVelocity);
 			//修复黏板问题，出现的原因是玩家挡板以较高的速度移向球，导致球的中心进入玩家挡板，致使执行了多次碰撞检测，
 			//导致y轴速度翻转多次，解决方案是直接返回一个正速度而不是反转y轴速度
 			Ball->Velocity.y = -1.0f * abs(Ball->Velocity.y);
@@ -439,7 +527,7 @@ Direction VectorDirection(glm::vec2 target)
 	//获取最大值，即最接近的标准方向矢量
 	for (GLuint i = 0; i < 4; i++)
 	{
-		GLfloat dot_product = glm::dot(glm::normalize(target), compass[i]);		
+		GLfloat dot_product = glm::dot(glm::normalize(target), compass[i]);
 		if (dot_product > max)
 		{
 			max = dot_product;
