@@ -100,7 +100,7 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 		Character ch = Characters[*c];
 
 		GLfloat xpos = x + ch.Bearing.x * scale;
-		GLfloat ypos = y + (this->Characters['H'].Bearing.y - ch.Bearing.y) * scale;	//要注意在游戏中y向下增长，因此需要改变动态计算四边形顶点位置的方法，'H'这个字符是正好与顶部接触的，'X'之类的也可以，但是'g'、'j'之类的是偏的
+		GLfloat ypos = y + (this->Characters['H'].Bearing.y - ch.Bearing.y) * scale;	//要注意在游戏中y向下增长，因此需要改变动态计算四边形顶点位置的方法，'H'这个字符是正好与顶部接触的，'X'之类的也可以，但是'g'、'j'之类的是偏的，使用'H'获得顶部的高度
 
 		GLfloat w = ch.Size.x * scale;
 		GLfloat h = ch.Size.y * scale;
@@ -127,8 +127,7 @@ void TextRenderer::RenderText(std::string text, GLfloat x, GLfloat y, GLfloat sc
 		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 		//更新VBO内存的内容
 		glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); //必须使用glBufferSubData而不是glBufferData
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); //必须使用glBufferSubData而不是glBufferData，因为是更新数据
 		//渲染四边形
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 		//更新位置到下一个字形的原点，注意单位是1/64像素

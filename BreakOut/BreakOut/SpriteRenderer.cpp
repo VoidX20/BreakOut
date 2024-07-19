@@ -12,7 +12,8 @@ SpriteRenderer::~SpriteRenderer()
 
 void SpriteRenderer::DrawSprite(const Texture2D& texture, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color)
 {
-	//glUseProgram，同时告诉OpenGL，sprite这个采样器的数据在0号纹理单元
+	//glUseProgram，同时使用glUniform1i给纹理采样器分配一个位置值，为以后可能使用多个贴图预留扩展。
+	//glUniform1i and glUniform1iv are the only two functions that may be used to load uniform variables defined as sampler types.
 	//必须要对每个采样器都指定纹理单元，不要忘记在设置uniform变量之前激活着色器程序！
 	this->shader.Use().SetInteger("sprite", 0);
 
@@ -26,7 +27,7 @@ void SpriteRenderer::DrawSprite(const Texture2D& texture, glm::vec2 position, gl
 
 	model = glm::scale(model, glm::vec3(size, 1.0f)); //1.缩放
 
-	//注意矩阵是左乘的，因此变换顺序要反过来，先缩放，再旋转，最后平移
+	//注意矩阵是左乘的，因此变换顺序要反过来，先缩放，再旋转，最后平移。OpenGL列优先
 	this->shader.SetMatrix4("model", model);
 
 	this->shader.SetVector3f("spriteColor", color);
@@ -46,7 +47,7 @@ void SpriteRenderer::initRenderData()
 	GLuint VBO;
 	GLfloat vertices[] = {
 		//一个以左上角为(0,0)原点的四边形
-		// 注意y是向下增长的，这由我们选择的透视投影矩阵所决定,在Game::Init()中配置
+		// 注意y是向下增长的，这由透视投影矩阵所决定,在Game::Init()中配置
 		// (0,0)
 		// |--------------------->x+
 		// |				|

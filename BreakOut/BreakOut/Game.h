@@ -47,10 +47,10 @@ public:
 	GLuint					Width, Height;		//屏幕宽高
 	std::vector<GameLevel>	Levels;				//所有关卡对象的集合
 	GLuint					Level;				//当前关卡序号
-	std::vector<PowerUp>	PowerUps;				//游戏中的道具
-	GLuint Lives;								//玩家生命值
+	std::vector<PowerUp>	PowerUps;			//游戏中的道具
+	GLuint					Lives;				//玩家生命值
 
-	//局部静态变量实现的实例化函数，需要C++11以上
+	//局部静态变量实现的单例
 	static Game& instantce(GLuint Width, GLuint Height) {
 		static Game instantce_(Width,Height);
 		return instantce_;

@@ -58,8 +58,8 @@ int main(int argc, char* argv[])
 	std::cout << "配置OpenGL...";
 	//配置OpenGL
 	glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);		//配置viewport大小
-	glEnable(GL_CULL_FACE);								//启用面剔除
 	glEnable(GL_DEPTH);									//启用深度测试
+	glEnable(GL_CULL_FACE);								//启用面剔除
 	glEnable(GL_BLEND);									//启用混合
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	//配置混合模式
 	std::cout << "成功" << std::endl;

@@ -41,7 +41,7 @@ const GLfloat BALL_RADIUS = 12.5f;
 /// <param name="width">窗口宽度</param>
 /// <param name="height">窗口高度</param>
 Game::Game(GLuint width, GLuint height)
-	: State(GAME_MENU), Keys(), Width(width), Height(height), Level(0), Lives(3)
+	: State(GAME_MENU), Keys(), KeysProcessed(),Width(width), Height(height), Level(0), Lives(3)
 {
 
 }
@@ -72,7 +72,7 @@ void Game::Init()
 	std::cout << "配置着色器...";
 	// 配置着色器的投影矩阵，采用正射投影，参数分别为左、右、下、上边界，以及标准化设备坐标的区域
 	// 分别为(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f)
-	// 也就是把所有在0到800之间的x坐标变换到-1到1之间，并把所有在0到600之间的y坐标变换到-1到1之间
+	// 也就是把所有在0到800之间的x坐标变换到-1到1之间，并把所有在600到0之间的y坐标变换到-1到1之间
 	// 这样观察空间坐标直接对应最终像素的坐标
 	//最终效果为：
 	/*
